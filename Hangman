@@ -1,0 +1,47 @@
+import time
+
+# Welcome the user
+name = input("Hey, welcome! Who are you? What's your name? ")
+print(f"Hello {name}, welcome to HANGMAN! It's time to play.")
+time.sleep(1)
+print("Start guessing...")
+time.sleep(1.5)
+
+# The word to guess
+word = "aurora"
+word = word.lower()  # Ensure the word is lowercase
+# Meaning of aurora: the dawn in the morning
+user_guesses = ""
+turns = 5
+
+while turns > 0:
+ # Display the word with guessed letters or underscores
+    display_word = [char if char in user_guesses else "_" for char in word]
+    print(" ".join(display_word))
+
+    if "_" not in display_word:
+        print(f"Congrats! You guessed the word: {word}")
+        break
+
+    # Take user input and validate
+    user_guess = input(f"{name}, guess a character: ").lower()
+    if not user_guess.isalpha() or len(user_guess) != 1:
+        print("Invalid input. Please enter a single character.")
+        continue
+    if user_guess in user_guesses:
+        print("You already guessed that! Try another character.")
+        continue
+
+    user_guesses += user_guess
+
+    # Check if the guess is correct
+    if user_guess in word:
+        print("Good guess!")
+    else:
+        turns -= 1
+        print("Sorry {name} you're wrong!")
+        if turns > 0:
+            print(f"You can guess only {turns} more times.")
+        else:
+            print("You lost all your chances.")
+            print("Alas!You lose")
